@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: msvc-payments
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paydb
+    username: postgres
+    password: 100juanU
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
+    stream:
+      bindings:
+        paymentStatusUpdate-out-0:
+          destination: arka.events.payment-status-update
+          content-type: application/json
+          binder: rabbit
+
+      functions:
+        paymentStatusUpdate: paymentStatusUpdate
+
+server:
+  port: 8087
+
+logging:
+  level:
+    com.springcloud.msvc_payments.infrastructure.integration.client.OrderFeignClient: DEBUG
+    com.springcloud.msvc_payments.infrastructure.integration.client.InventoryFeignClient: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+feign:
+  client:
+    config:
+      default:
+        client: okhttp

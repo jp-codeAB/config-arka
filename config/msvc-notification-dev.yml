@@ -1,0 +1,43 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: arkanotification@gmail.com
+    password: akbv rpvx ygzs ylit
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    function:
+      definition: paymentStatusUpdate;processOrderEvent
+    stream:
+      bindings:
+        paymentStatusUpdate-in-0:
+          destination: arka.events.payment-status-update
+          group: msvc-notification-group
+          content-type: application/json
+          binder: rabbit
+
+        processOrderEvent-in-0:
+          destination: order-status-events
+          group: msvc-notification-group
+          content-type: application/json
+          binder: rabbit
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
