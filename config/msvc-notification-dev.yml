@@ -1,3 +1,6 @@
+server:
+  port: 8000
+
 spring:
   mail:
     host: smtp.gmail.com
@@ -12,7 +15,7 @@ spring:
             enable: true
 
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
@@ -34,10 +37,7 @@ spring:
           content-type: application/json
           binder: rabbit
 
-server:
-  port: 8000
-
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server:8761/eureka/
