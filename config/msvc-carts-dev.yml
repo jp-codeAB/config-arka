@@ -1,0 +1,25 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cartdb
+    username: postgres
+    password: 100juanU
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    com.springcloud.msvc_carts.infrastructure.integration.client.OrderFeignClient: DEBUG
