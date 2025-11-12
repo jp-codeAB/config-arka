@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/authdb
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:authdb}
     username: ${DB_USER:postgres}
-    password: ${DB_PASS:100juanU}
+    password: ${DB_PASSWORD:100juanU}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -16,7 +16,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
 
 jwt:
   secret: ${JWT_SECRET:VvQ4uF5t+HhX0fG6oA9/eJ7hR5t7yL1D3kG9QxT4zC2o=}
+
