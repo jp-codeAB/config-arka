@@ -1,36 +1,62 @@
-spring:
-  application:
-    name: msvc-products
+name: CI-msvc-products
 
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/inventorydb
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 10
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
-  jpa:
-    show-sql: true
-    open-in-view: false
-    hibernate:
-      ddl-auto: update
+jobs:
+  build_and_package:
+    runs-on: ubuntu-latest
 
-server:
-  port: ${PORT:8081}
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 100juanU
+          POSTGRES_DB: inventorydb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
-logging:
-  level:
-    com.arka_proyect.msvc_products: DEBUG
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: gradle
 
-app:
-  report:
-    base-path: ./reports/
+      - name: Grant execute permission for Gradle Wrapper
+        run: chmod +x gradlew
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          echo "Waiting for PostgreSQL to be healthy..."
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5432 -U postgres && break || sleep 2
+          done
+
+      - name: Build JAR (skip tests)
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/inventorydb
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: 100juanU
+          SPRING_PROFILES_ACTIVE: dev
+        run: ./gradlew clean build -x test
+
+      - name: Upload Artifact (JAR File)
+        uses: actions/upload-artifact@v4
+        with:
+          name: msvc-products-jar
+          path: build/libs/*.jar
+          retention-days: 1
