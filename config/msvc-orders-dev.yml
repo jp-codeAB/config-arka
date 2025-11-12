@@ -29,7 +29,7 @@ spring:
           binder: rabbit
 
 server:
-  port: 8085
+  port: ${PORT:8082}
 
 logging:
   level:
