@@ -15,4 +15,5 @@ Esta documentación está organizada en secciones numeradas para facilitar la tr
 | :--- | :--- |
 | [Historias de Usuario](HistoriasUsuario.md) | Requisitos detallados y priorización del desarrollo. |
 | [Modelo Entidad-Relacion](Entidad-Relación.md) | Esquema relacional del sistema. |
+| [Diagrama asos de Uso](Casos-uso.md) | Diagrama de casos de Uso. |
 | [Arquitectura del Software](ArquitecturaDelSoftware.md) | Definición de microservicios, patrones y diagramas. |
