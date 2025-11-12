@@ -3,9 +3,9 @@ spring:
     name: msvc-orders
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/orderdb
-    username: postgres
-    password: 100juanU
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:orderdb}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:100juanU}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -15,10 +15,10 @@ spring:
       ddl-auto: update
 
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASS:guest}
 
   cloud:
     stream:
@@ -38,6 +38,6 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
