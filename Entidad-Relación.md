@@ -4,11 +4,11 @@
 La persistencia de datos del sistema Arka se gestiona mediante una base de datos relacional (PostgreSQL), siguiendo Base de Datos por Microservicio.
 ## 1. Diagrama Entidad-Relación (DER)
 
-El siguiente diagrama conceptual de **Entidad-Relación (DER)** ilustra las entidades primarias del sistema (Productos, Usuarios, Órdenes, Historial de Stock y Carritos) y sus relaciones lógicas.
+El siguiente diagrama conceptual de **Entidad-Relación (DER)** ilustra las entidades primarias del sistema (Productos, Usuarios, Órdenes, Historial de Stock, Pagos, Notificaiones y Carritos) y sus relaciones lógicas.
 
 ![Diagrama Entidad-Relación](./img/ER.png)
 
-## 2. Esquema Relacional (SQL DDL Abstraído)
+## 2. Esquema Relacional
 
 El esquema de la base de datos se compone de las siguientes tablas, con sus atributos clave y relaciones:
 
@@ -23,6 +23,5 @@ El esquema de la base de datos se compone de las siguientes tablas, con sus atri
 | **carts** | Carritos de compra. | 1:N con `cart_items`. |
 | **cart_items** | Detalle de productos en un carrito. | N:1 con `carts` y `products`. |
 | **notifications** | Registro de notificaciones de estado. | N:1 con `users` y `orders`. |
-
 
 
