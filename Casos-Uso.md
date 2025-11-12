@@ -29,6 +29,6 @@ El siguiente modelo conceptualiza las **interacciones primarias del sistema**, a
 
 ---
 
-> **Nota Técnica:**  
-
+> **Diagrama:**  
+![Diagrama Entidad-Relación](./img/usescase.png)
 ---
