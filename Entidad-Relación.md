@@ -25,3 +25,5 @@ El esquema de la base de datos se compone de las siguientes tablas, con sus atri
 | **notifications** | Registro de notificaciones de estado. | N:1 con `users` y `orders`. |
 
 
+## 
+| [Casos de Uso](Casos-Uso.md) | Diagrama de caso de uso. |
