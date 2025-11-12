@@ -5,14 +5,14 @@
 Los actores primarios del sistema son:
 
 - **CLIENTE**  
-  Actor externo que interactúa con las funcionalidades de **compra**, **consulta de catálogo** y **gestión de su orden personal**.
+  Actor externo que interactúa con las funcionalidades de **compra**, **consulta de catálogo(productos, categorias)** y **gestión de su orden personal**.
 
 - **ADMINISTRADOR**  
-  Actor interno con privilegios de **gestión de backend** (inventario, catálogo, órdenes generales y reportes analíticos).
+  Actor interno con privilegios de **gestión de backend** (inventario, productos, categorias, órdenes generales y reportes analíticos).
 
 ---
 
-## 2. 🧩 Modelado de Casos de Uso (CU) Refinado
+## 2. 🧩 Modelado de Casos de Uso
 
 El siguiente modelo conceptualiza las **interacciones primarias del sistema**, asegurando **trazabilidad** y **coherencia** con las Historias de Usuario (HU) definidas.
 
