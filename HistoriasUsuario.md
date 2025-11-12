@@ -28,4 +28,5 @@ El backlog del proyecto se ha organizado en módulos funcionales, con cada Histo
 | **HU8** | Identificar carritos abandonados(ADMIN) | Listado con fecha y productos. |
 
 
+
 | [Modelo Entidad-Relacion](Entidad-Relación.md) | Esquema relacional del sistema. |
