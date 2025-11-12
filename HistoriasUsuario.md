@@ -24,6 +24,8 @@ El backlog del proyecto se ha organizado en módulos funcionales, con cada Histo
 
 | HU | Descripción | Criterios de Aceptación Clave |
 | :--- | :--- | :--- |
-| **HU7** | Generar reportes de ventas semanales(ADMIN) | Incluir total de ventas, productos más vendidos y clientes más frecuentes. Exportación a CSV/PDF |
-| **HU8** | Identificar carritos abandonados | Listado con fecha y productos. |
+| **HU7** | Generar reportes de ventas (ADMIN) | Incluir total de ventas, productos, y clientes . Exportación a CSV/PDF |
+| **HU8** | Identificar carritos abandonados(ADMIN) | Listado con fecha y productos. |
 
+
+| [Modelo Entidad-Relacion](Entidad-Relación.md) | Esquema relacional del sistema. |
