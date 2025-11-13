@@ -2,7 +2,7 @@
 
 Este documento describe el flujo completo de configuración, despliegue e integración continua de la arquitectura basada en microservicios de **Arka Cloud**.
 
-
+![Arquitectura Hexagonal](./img/cicd.jpeg)
 
 ---
 
