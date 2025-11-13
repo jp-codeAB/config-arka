@@ -3,6 +3,16 @@
 
 En este proyecto se implemento una Arquitectura de Microservicios, desacoplando las funcionalidades de negocio en servicios pequeños y autónomos. El patrón de diseño interno de cada microservicio es la **Arquitectura Hexagonal (Ports & Adapters)**, asegurando la separación de preocupaciones, el **principio SOLID** y la independencia del dominio.
 
+##Patrón Base
+•	Arquitectura de microservicios distribuidos
+•	Comunicación síncrona: REST + Feign Client
+•	Comunicación asíncrona: RabbitMQ + Spring Cloud Stream
+•	Configuración centralizada: Spring Cloud Config Server
+•	Descubrimiento de servicios: Eureka Server
+•	Entrada unificada: Spring Cloud Gateway
+•	Autenticación y autorización: JWT (JSON Web Token)
+•	CI/CD: GitHub Actions (Gradle + artifacts)
+
 ***
 
 ## 1. Modelo Arquitectónico de Microservicios
@@ -11,11 +21,11 @@ El sistema se compone de los siguientes microservicios, cada uno responsable de 
 
 | Microservicio      | Funciones Principales                                                                      | Tecnologías / Dependencias                                    |
 |:-------------------|:-------------------------------------------------------------------------------------------|:--------------------------------------------------------------|
-| **Config Server**  | Servidorcentrl gestiona y distribuye configuraciones externas de todos los microservicios. | Spring Cloud Netflix Eureka Server.                           |
+| **Config Server**  | Servidorcentrl gestiona y distribuye configuraciones externas de todos los microservicios. | Spring Config Server.     |
 | **Eureka Server**  | Registro y descubrimiento de servicios                                                     | Spring Cloud Netflix Eureka Server.                           |
 | **API Gateway**    | Entrada única, enrutamiento, control de acceso y balanceo de carga.                        | Spring Cloud Gateway, Eureka Client.                          |
 | **Inventario**     | Productos, stock, logs de cambios definidos en los requerimentos. Reportes                 | Spring Data JPA, PostgreSQL.                                  |
-| **Carrito**        | Gestión de carritos, ítems del carrito, abandono.                                          | Spring Data JPA, Feign Client (a Notificaciones).             | 
+| **Carrito**        | Gestión de carritos, ítems del carrito, abandono.                                          | Spring Data JPA, Feign Client (a order e inventario) y asincrono con Notification.             | 
 | **Pedidos**        | Órdenes de compra, ítems de órdenes, estados de orden .                                    | Spring Data JPA, **Feign Client** (a Inventario y Usuarios) . |
 | **Pagos**          | Procesamiento de transacciones y estado de pagos.                                          | Feign Client (a Pedidos).                                     |
 | **Usuarios**       | Login, roles, generación/validación de tokens (JWT), historial de compra.                  | Spring Security.                                              |
@@ -27,15 +37,10 @@ El sistema se compone de los siguientes microservicios, cada uno responsable de 
 
 ***
 
-
-
 ## 2. Componentes de Infraestructura y Enrutamiento
 
 ### 2.1. Descubrimiento de Servicios (eureka-server) 
-El componente eureka-server es el registro central (Service Discovery) y opera en el puerto 87614. Su configuración principal deshabilita el registro en sí mismo y la obtención del registro 
-
-### 2.2. API Gateway (msvc-gateway) 
-El Gateway opera en el puerto 8090 y actúa como el punto de entrada principal. Está configurado como cliente de Eureka para utilizar el balanceo de carga del lado del cliente.
+El componente eureka-server es el registro central (Service Discovery) y opera en el puerto 87614. Su configuración principal deshabilita el registro en sí mismo y la obtención del registro
 
  #### Configuración de Conexión a Eureka (.yml)
 ```
@@ -45,6 +50,10 @@ client:
   service-url:
     defaultZone: http://localhost:8761/eureka/
 ```
+
+### 2.2. API Gateway (msvc-gateway) 
+El Gateway opera en el puerto 8090 y actúa como el punto de entrada principal. Está configurado como cliente de Eureka para utilizar el balanceo de carga del lado del cliente.
+
 
 ***
 #### Rutas y Enrutamiento
@@ -108,3 +117,7 @@ Cada microservicio implementa la Arquitectura Hexagonal (Ports & Adapters) para 
     │   ├── NotFoundException.java
     │   ├── GlobalExceptionHandler.java (Manejo de Errores)
     │  └── BusinessException.java
+```
+
+## 
+| [Diagrama de CI/CD](Integracion_Continua.md) | Diagrama CI/CD. |
