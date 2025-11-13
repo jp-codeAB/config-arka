@@ -65,7 +65,7 @@ Se aplica el filtro `StripPrefix=1` para eliminar el prefijo de la ruta.
 
 ## 3. Patrón de Diseño Interno: Arquitectura Hexagonal
 
-![Arquitectura Hexagonal(./img/hexagonal.png)
+![Arquitectura Hexagonal](./img/hexagonal.png)
 
 Cada microservicio implementa la Arquitectura Hexagonal (Ports & Adapters) para garantizar el desacoplamiento total entre capas. La estructura de carpetas lógica es la siguiente:
 ```
