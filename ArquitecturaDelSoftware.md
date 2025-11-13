@@ -15,10 +15,10 @@ El sistema se compone de los siguientes microservicios, cada uno responsable de 
 | **API Gateway** | Entrada única, enrutamiento, control de acceso y balanceo de carga. | Spring Cloud Gateway, Eureka Client. |
 | **Inventario** | Productos, stock, logs de cambios definidos en los requerimentos. Reportes | Spring Data JPA, PostgreSQL. |
 | **Carrito** | Gestión de carritos, ítems del carrito, abandono. | Spring Data JPA, Feign Client (a Notificaciones). | 
-| **Pedidos** | Órdenes de compra, ítems de órdenes, estados de orden . | Spring Data JPA, **Feign Client** (a Inventario y Clientes) . |
+| **Pedidos** | Órdenes de compra, ítems de órdenes, estados de orden . | Spring Data JPA, **Feign Client** (a Inventario y Usuarios) . |
 | **Pagos** | Procesamiento de transacciones y estado de pagos. | Feign Client (a Pedidos). |
 | **Usuarios** | Login, roles, generación/validación de tokens (JWT), historial de compra. | Spring Security. |
-| **Notificaciones** | Envío de correos. | Servicio de Correo Externo. |
+| **Notificaciones** | Envío de correos. | Servicio de Correo Externo. RabbitMQ |
 
 
 
@@ -54,7 +54,7 @@ Se aplica el filtro `StripPrefix=1` para eliminar el prefijo de la ruta.
 | ID de Ruta              | URI de Destino          | Patrón de Ruta          | Descripción                 |
 |--------------------------|-------------------------|--------------------------|------------------------------|
 | msvc-inventory           | lb://msvc-inventory     | /api/products/**         | CRUD de Productos, Historial de cambios stock            |
-| msvc-inventory-categories| lb://msvc-inventory     | /api/categories/**       | Gestión de Categorías        |
+| msvc-inventory-categories| lb://msvc-inventory     | /api/categories/**       | CRUD de Categorías        |
 | msvc-orders              | lb://msvc-orders        | /api/orders/**           | CRUD de Órdenes              |
 | msvc-carts               | lb://msvc-carts         | /api/carts/**            | Gestión y creacion de Carritos          |
 | msvc-payments            | lb://msvc-payments      | /api/payments/**         | Procesamiento de Pagos       |
