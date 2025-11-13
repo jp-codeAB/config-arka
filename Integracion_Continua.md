@@ -1,10 +1,10 @@
-# 🧩 Flujo de Despliegue y Configuración – Arka Cloud
+# Flujo de Despliegue y Configuración – Arka Cloud
 
 Este documento describe el flujo completo de configuración, despliegue e integración continua de la arquitectura basada en microservicios de **Arka Cloud**.
 
 ---
 
-## 🚀 1. Configuración Centralizada
+## 1. Configuración Centralizada
 
 Cada microservicio carga su archivo `bootstrap.yml`, donde se define:
 
@@ -30,64 +30,7 @@ spring:
 
 ---
 
-## 🔍 2. Registro en Eureka
-
-- Al iniciar, cada microservicio se **registra automáticamente** en el **Eureka Server** (`arka-eureka-server`).
-- Este registro permite el **descubrimiento dinámico de servicios** mediante el esquema:
-
-```
-lb://service-name
-```
-
-Ejemplo: `lb://msvc-orders`
-
----
-
-## 🌐 3. Ruteo a través del API Gateway
-
-- Todas las solicitudes entran por el **Gateway** (`arka-gateway`) en el puerto **:8090**.
-- El Gateway enruta las peticiones al microservicio correspondiente según las rutas definidas en:
-
-```
-config-arka/config/msvc-gateway-dev.yml
-```
-
-Ejemplo de configuración:
-
-```yaml
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: products
-          uri: lb://msvc-products
-          predicates:
-            - Path=/api/products/**
-```
-
----
-
-## 📨 4. Comunicación Asíncrona
-
-- Los servicios como **Orders**, **Payments** y **Notifications** se comunican de manera **asíncrona** mediante **RabbitMQ**.
-- Las colas y bindings se definen en `spring.cloud.stream.bindings`.
-
-Ejemplo:
-
-```yaml
-spring:
-  cloud:
-    stream:
-      bindings:
-        orderCreated-out-0:
-          destination: orders.exchange
-        paymentProcessed-in-0:
-          destination: payments.exchange
-```
-
----
-
-## 🧰 5. Repositorios y Estructura de Configuración
+## 🧰 2. Repositorios y Estructura de Configuración
 
 Organización principal en GitHub:
 
@@ -117,7 +60,7 @@ arka-cloud/
 
 ---
 
-## ⚙️ 6. Flujo de Integración Continua (CI/CD)
+## ⚙️ 3. Flujo de Integración Continua (CI/CD)
 
 Cada microservicio implementa un flujo CI/CD mediante **GitHub Actions**, definido en:
 
@@ -168,6 +111,7 @@ flowchart LR
     C --> E[msvc-products]
     C --> F[msvc-carts]
     C --> G[msvc-orders]
+    C --> I[msvc-payments]
     G --> H[RabbitMQ]
     H --> I[msvc-payments]
     H --> J[msvc-notification]
