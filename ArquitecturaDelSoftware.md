@@ -22,7 +22,7 @@ El sistema se compone de los siguientes microservicios, cada uno responsable de 
 
 
 
-![Diagrama](./img/diagrama.png)
+![Diagrama](./img/diagramatec.png)
 
 ***
 
@@ -95,6 +95,10 @@ Cada microservicio implementa la Arquitectura Hexagonal (Ports & Adapters) para 
 │           │   ├── Request.java (DTO de Entrada)
 │           └── response/
 │               ├── Response.java (DTO de Salida)
+│   └── security/
+│       ├── AuthUser
+│       ├── GatewayAuthFilter
+│       ├── SecurityConfig
 └── shared/
     ├── exception/
     │   ├── NotFoundException.java
