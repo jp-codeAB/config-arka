@@ -9,16 +9,17 @@ En este proyecto se implemento una Arquitectura de Microservicios, desacoplando 
 
 El sistema se compone de los siguientes microservicios, cada uno responsable de un dominio de negocio específico:
 
-| Microservicio | Funciones Principales | Tecnologías / Dependencias |
-| :--- | :--- | :--- |
-| **Eureka Server** | Registro y descubrimiento de servicios | Spring Cloud Netflix Eureka Server. |
-| **API Gateway** | Entrada única, enrutamiento, control de acceso y balanceo de carga. | Spring Cloud Gateway, Eureka Client. |
-| **Inventario** | Productos, stock, logs de cambios definidos en los requerimentos. Reportes | Spring Data JPA, PostgreSQL. |
-| **Carrito** | Gestión de carritos, ítems del carrito, abandono. | Spring Data JPA, Feign Client (a Notificaciones). | 
-| **Pedidos** | Órdenes de compra, ítems de órdenes, estados de orden . | Spring Data JPA, **Feign Client** (a Inventario y Usuarios) . |
-| **Pagos** | Procesamiento de transacciones y estado de pagos. | Feign Client (a Pedidos). |
-| **Usuarios** | Login, roles, generación/validación de tokens (JWT), historial de compra. | Spring Security. |
-| **Notificaciones** | Envío de correos. | Servicio de Correo Externo. RabbitMQ |
+| Microservicio      | Funciones Principales                                                                      | Tecnologías / Dependencias                                    |
+|:-------------------|:-------------------------------------------------------------------------------------------|:--------------------------------------------------------------|
+| **Config Server**  | Servidorcentrl gestiona y distribuye configuraciones externas de todos los microservicios. | Spring Cloud Netflix Eureka Server.                           |
+| **Eureka Server**  | Registro y descubrimiento de servicios                                                     | Spring Cloud Netflix Eureka Server.                           |
+| **API Gateway**    | Entrada única, enrutamiento, control de acceso y balanceo de carga.                        | Spring Cloud Gateway, Eureka Client.                          |
+| **Inventario**     | Productos, stock, logs de cambios definidos en los requerimentos. Reportes                 | Spring Data JPA, PostgreSQL.                                  |
+| **Carrito**        | Gestión de carritos, ítems del carrito, abandono.                                          | Spring Data JPA, Feign Client (a Notificaciones).             | 
+| **Pedidos**        | Órdenes de compra, ítems de órdenes, estados de orden .                                    | Spring Data JPA, **Feign Client** (a Inventario y Usuarios) . |
+| **Pagos**          | Procesamiento de transacciones y estado de pagos.                                          | Feign Client (a Pedidos).                                     |
+| **Usuarios**       | Login, roles, generación/validación de tokens (JWT), historial de compra.                  | Spring Security.                                              |
+| **Notificaciones** | Envío de correos.                                                                          | Servicio de Correo Externo. RabbitMQ                          |
 
 
 
@@ -63,6 +64,9 @@ Se aplica el filtro `StripPrefix=1` para eliminar el prefijo de la ruta.
 ***
 
 ## 3. Patrón de Diseño Interno: Arquitectura Hexagonal
+
+![Arquitectura Hexagonal(./img/hexagonal.png)
+
 Cada microservicio implementa la Arquitectura Hexagonal (Ports & Adapters) para garantizar el desacoplamiento total entre capas. La estructura de carpetas lógica es la siguiente:
 ```
 ├── MsvcApplication.java
