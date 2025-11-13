@@ -2,6 +2,8 @@
 
 Este documento describe el flujo completo de configuración, despliegue e integración continua de la arquitectura basada en microservicios de **Arka Cloud**.
 
+
+
 ---
 
 ## 1. Configuración Centralizada
@@ -35,18 +37,18 @@ spring:
 Organización principal en GitHub:
 
 ```
-arka-cloud/
+arka/
 │
-├── arka-config-server/       → Servidor de configuración
-├── arka-eureka-server/       → Registro de servicios
-├── arka-gateway/             → API Gateway
+├── config-server/       → Servidor de configuración
+├── eureka-server/       → Registro de servicios
+├── msvc-gateway/             → API Gateway
 │
-├── arka-msvc-auth/           → Servicio de autenticación JWT
-├── arka-msvc-products/       → Servicio de productos
-├── arka-msvc-carts/          → Servicio de carritos
-├── arka-msvc-orders/         → Servicio de órdenes
-├── arka-msvc-payments/       → Servicio de pagos
-├── arka-msvc-notification/   → Servicio de notificaciones (RabbitMQ)
+├── msvc-auth/           → Servicio de autenticación JWT
+├── msvc-products/       → Servicio de productos
+├── msvc-carts/          → Servicio de carritos
+├── msvc-orders/         → Servicio de órdenes
+├── msvc-payments/       → Servicio de pagos
+├── msvc-notification/   → Servicio de notificaciones (RabbitMQ)
 │
 └── config-arka/              → Repositorio central de configuración
     ├── msvc-auth-dev.yml
@@ -124,6 +126,4 @@ flowchart LR
 
 ---
 
-📘 **Autor:** Equipo de Arquitectura – *Arka Cloud*  
-📅 **Última actualización:** Noviembre 2025  
-🏷️ **Versión del documento:** v1.0
+
